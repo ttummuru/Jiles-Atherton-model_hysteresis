@@ -1,0 +1,1151 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     46536,       1142]
+NotebookOptionsPosition[     42119,       1003]
+NotebookOutlinePosition[     43709,       1053]
+CellTagsIndexPosition[     43381,       1041]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Jiles-Atherton Model of Magnetic Hysteresis", "DemoTitle",
+ CellChangeTimes->{{3.6889793797314243`*^9, 3.6889793942499285`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["", "InitializationSection"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[Mu]0", "=", 
+   RowBox[{"4", "\[Pi]", "  ", 
+    SuperscriptBox["10", 
+     RowBox[{"-", "7"}]]}]}], ";", " ", 
+  RowBox[{"\[Omega]", "=", 
+   RowBox[{"2", "\[Pi]", 
+    RowBox[{"(", "1", ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Man", "[", "t_", "]"}], ":=", 
+   RowBox[{
+    RowBox[{"Round", "[", "Ms", "]"}], " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"Coth", "[", 
+       FractionBox[
+        RowBox[{
+         RowBox[{"H", "[", "t", "]"}], "+", 
+         RowBox[{
+          RowBox[{"Round", "[", 
+           RowBox[{"\[Alpha]", ",", "0.0001"}], "]"}], " ", 
+          RowBox[{"M", "[", "t", "]"}]}]}], 
+        RowBox[{"Round", "[", "a", "]"}]], "]"}], "-", 
+      FractionBox[
+       RowBox[{"Round", "[", "a", "]"}], 
+       RowBox[{
+        RowBox[{"H", "[", "t", "]"}], "+", 
+        RowBox[{
+         RowBox[{"Round", "[", 
+          RowBox[{"\[Alpha]", ",", "0.0001"}], "]"}], " ", 
+         RowBox[{"M", "[", "t", "]"}]}]}]]}], ")"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Delta]M", "[", "t_", "]"}], "=", 
+   RowBox[{"1", "-", 
+    RowBox[{
+     RowBox[{"UnitStep", "[", 
+      RowBox[{"-", 
+       RowBox[{
+        RowBox[{"H", "'"}], "[", "t", "]"}]}], "]"}], " ", 
+     RowBox[{"UnitStep", "[", 
+      RowBox[{
+       RowBox[{"Man", "[", "t", "]"}], "-", 
+       RowBox[{"M", "[", "t", "]"}]}], "]"}]}], "-", 
+    RowBox[{
+     RowBox[{"UnitStep", "[", 
+      RowBox[{
+       RowBox[{"H", "'"}], "[", "t", "]"}], "]"}], " ", 
+     RowBox[{"UnitStep", "[", 
+      RowBox[{
+       RowBox[{"M", "[", "t", "]"}], "-", 
+       RowBox[{"Man", "[", "t", "]"}]}], "]"}]}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"H", "[", "t_", "]"}], ":=", 
+   RowBox[{"7000", " ", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"\[Omega]", " ", "t"}], "]"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"\[Delta]", "[", "t_", "]"}], ":=", 
+   RowBox[{"Sign", "[", 
+    RowBox[{
+     RowBox[{"H", "'"}], "[", "t", "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"solns", "=", 
+   RowBox[{"ParametricNDSolveValue", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Block", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"Ms", ",", "c", ",", "a", ",", "k", ",", "\[Alpha]"}], 
+          "}"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"M", "'"}], "[", "t", "]"}], "\[Equal]", 
+          FractionBox[
+           RowBox[{
+            RowBox[{
+             RowBox[{"\[Delta]M", "[", "t", "]"}], " ", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Man", "[", "t", "]"}], "-", 
+               RowBox[{"M", "[", "t", "]"}]}], ")"}], 
+             RowBox[{
+              RowBox[{"H", "'"}], "[", "t", "]"}]}], "+", 
+            RowBox[{
+             RowBox[{"Round", "[", 
+              RowBox[{"c", " ", ",", "0.001"}], "]"}], " ", 
+             RowBox[{"Round", "[", "k", "]"}], 
+             RowBox[{"\[Delta]", "[", "t", "]"}], 
+             RowBox[{
+              RowBox[{"Man", "'"}], "[", "t", "]"}]}]}], 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Round", "[", "k", "]"}], " ", 
+             RowBox[{"\[Delta]", "[", "t", "]"}]}], "-", 
+            RowBox[{
+             RowBox[{"Round", "[", 
+              RowBox[{"\[Alpha]", ",", "0.0001"}], "]"}], 
+             RowBox[{"\[Delta]M", "[", "t", "]"}], 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"Man", "[", "t", "]"}], "-", 
+               RowBox[{"M", "[", "t", "]"}]}], ")"}]}]}]]}]}], "]"}], ",", 
+       RowBox[{
+        RowBox[{"M", "[", 
+         SuperscriptBox["10", 
+          RowBox[{"-", "3"}]], "]"}], "\[Equal]", "0"}]}], "}"}], ",", "M", 
+     ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"Ms", ",", "c", ",", "a", ",", "k", ",", "\[Alpha]"}], "}"}], 
+     ",", " ", 
+     RowBox[{"Method", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<EquationSimplification\>\"", "->", "\"\<Residual\>\""}], 
+       "}"}]}]}], "]"}]}], ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.6889785634122143`*^9, 3.6889785655157213`*^9}, 
+   3.6889788823321533`*^9, {3.689045663108909*^9, 3.689045668713348*^9}, 
+   3.689045779464939*^9, {3.689060928157093*^9, 3.689060933592708*^9}, {
+   3.6890688611775093`*^9, 3.689068925988429*^9}, {3.68906946768081*^9, 
+   3.689069496963394*^9}},
+ CellID->39012936]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ManipulateSection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"ParametricPlot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"H", "[", "t", "]"}], ",", 
+       RowBox[{
+        SuperscriptBox["10", 
+         RowBox[{"-", "6"}]], " ", 
+        RowBox[{
+         RowBox[{"solns", "[", 
+          RowBox[{"Ms", ",", "c", ",", "a", ",", "k", ",", "\[Alpha]"}], 
+          "]"}], "[", "t", "]"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"t", ",", "0", ",", "1.3"}], "}"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<H [A/m]\>\"", ",", "\"\<B [T]\>\""}], "}"}]}], ",", 
+     RowBox[{"LabelStyle", "\[Rule]", 
+      RowBox[{"{", "15", "}"}]}], ",", 
+     RowBox[{"PlotRange", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "9000"}], ",", "9000"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "1.4"}], ",", "1.4"}], "}"}]}], "}"}]}], ",", 
+     RowBox[{"PlotStyle", "\[Rule]", "Black"}], ",", 
+     RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"500", ",", "500"}], "}"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Ms", ",", 
+       RowBox[{"1.35", " ", 
+        SuperscriptBox["10", "6"]}], ",", 
+       "\"\<\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation \
+magnetization\>\""}], "}"}], ",", 
+     RowBox[{"1.2", " ", 
+      SuperscriptBox["10", "6"]}], ",", 
+     RowBox[{"1.5", " ", 
+      SuperscriptBox["10", "6"]}], ",", 
+     RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"c", ",", 
+       RowBox[{"1", "/", "5.4"}], ",", 
+       "\"\<c: Magnetization reversibility\>\""}], "}"}], ",", 
+     RowBox[{"1", "/", "30"}], ",", 
+     RowBox[{"1", "/", "3"}], ",", 
+     RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"a", ",", "1800", ",", "\"\<a: Domain wall density\>\""}], 
+      "}"}], ",", "1300", ",", "2300", ",", 
+     RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "k", ",", "2000", ",", 
+       "\"\<k: Average energy to break pining site\>\""}], "}"}], ",", "1500",
+      ",", "2500", ",", 
+     RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\[Alpha]", ",", 
+       RowBox[{"2", " ", 
+        SuperscriptBox["10", 
+         RowBox[{"-", "3"}]]}], ",", 
+       "\"\<\[Alpha]: Interdomain coupling\>\""}], "}"}], ",", 
+     RowBox[{"1", " ", 
+      SuperscriptBox["10", 
+       RowBox[{"-", "3"}]]}], ",", 
+     RowBox[{"3", " ", 
+      SuperscriptBox["10", 
+       RowBox[{"-", "3"}]]}], ",", 
+     RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   RowBox[{"ContinuousAction", "\[Rule]", "False"}]}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.688978586838303*^9, {3.68904202399859*^9, 3.6890420371153507`*^9}, 
+   3.689044914663269*^9, {3.6890456299987345`*^9, 3.6890456769924183`*^9}, {
+   3.689053829122803*^9, 3.6890538321478367`*^9}, {3.689053910479411*^9, 
+   3.689053953683205*^9}, {3.689054757287099*^9, 3.6890548355526047`*^9}, {
+   3.689054873239858*^9, 3.689054893140499*^9}, {3.6890616573934193`*^9, 
+   3.6890616577496433`*^9}, {3.689061755364771*^9, 3.6890617929578247`*^9}, {
+   3.6890676831798863`*^9, 3.68906775637059*^9}, {3.689067790479493*^9, 
+   3.6890678011553493`*^9}, {3.6890690973599687`*^9, 3.689069102250829*^9}, 
+   3.689069203882262*^9, {3.689069538707934*^9, 3.689069538909546*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 2030., $CellContext`c$$ = 
+    0.09993333333333333, $CellContext`k$$ = 2308., $CellContext`Ms$$ = 
+    1.2635*^6, $CellContext`\[Alpha]$$ = 0.0026400000000000004`, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`Ms$$], 1.2635*^6, 
+       "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+      1.2*^6, 1.5*^6}, {{
+       Hold[$CellContext`c$$], 0.09993333333333333, 
+       "c: Magnetization reversibility"}, 
+      Rational[1, 30], 
+      Rational[1, 3]}, {{
+       Hold[$CellContext`a$$], 2030., "a: Domain wall density"}, 1300, 
+      2300}, {{
+       Hold[$CellContext`k$$], 2308., 
+       "k: Average energy to break pining site"}, 1500, 2500}, {{
+       Hold[$CellContext`\[Alpha]$$], 0.0026400000000000004`, 
+       "\[Alpha]: Interdomain coupling"}, 
+      Rational[1, 1000], 
+      Rational[3, 1000]}}, Typeset`size$$ = {500., {248., 252.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`Ms$2166355$$ = 0, $CellContext`c$2166356$$ = 
+    0, $CellContext`a$2166357$$ = 0, $CellContext`k$2166358$$ = 
+    0, $CellContext`\[Alpha]$2166359$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 2030., $CellContext`c$$ = 
+        0.09993333333333333, $CellContext`k$$ = 2308., $CellContext`Ms$$ = 
+        1.2635*^6, $CellContext`\[Alpha]$$ = 0.0026400000000000004`}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`Ms$$, $CellContext`Ms$2166355$$, 0], 
+        Hold[$CellContext`c$$, $CellContext`c$2166356$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$2166357$$, 0], 
+        Hold[$CellContext`k$$, $CellContext`k$2166358$$, 0], 
+        Hold[$CellContext`\[Alpha]$$, $CellContext`\[Alpha]$2166359$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ParametricPlot[{
+         $CellContext`H[$CellContext`t], 
+         10^(-6) $CellContext`solns[$CellContext`Ms$$, $CellContext`c$$, \
+$CellContext`a$$, $CellContext`k$$, \
+$CellContext`\[Alpha]$$][$CellContext`t]}, {$CellContext`t, 0, 1.3}, 
+        AxesLabel -> {"H [A/m]", "B [T]"}, LabelStyle -> {15}, 
+        PlotRange -> {{-9000, 9000}, {-1.4, 1.4}}, PlotStyle -> Black, 
+        AspectRatio -> 1, ImageSize -> {500, 500}], 
+      "Specifications" :> {{{$CellContext`Ms$$, 1.2635*^6, 
+          "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+         1.2*^6, 1.5*^6, Appearance -> 
+         "Labeled"}, {{$CellContext`c$$, 0.09993333333333333, 
+          "c: Magnetization reversibility"}, 
+         Rational[1, 30], 
+         Rational[1, 3], Appearance -> 
+         "Labeled"}, {{$CellContext`a$$, 2030., "a: Domain wall density"}, 
+         1300, 2300, Appearance -> 
+         "Labeled"}, {{$CellContext`k$$, 2308., 
+          "k: Average energy to break pining site"}, 1500, 2500, Appearance -> 
+         "Labeled"}, {{$CellContext`\[Alpha]$$, 0.0026400000000000004`, 
+          "\[Alpha]: Interdomain coupling"}, 
+         Rational[1, 1000], 
+         Rational[3, 1000], Appearance -> "Labeled"}}, 
+      "Options" :> {ContinuousAction -> False}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{549., {347., 354.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->274286796]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ManipulateCaptionSection"],
+
+Cell[TextData[{
+ "This Demonstration simulates the Jiles-Atherton model of magnetic \
+hysteresis and aims to depict how each of the \[FiLigature]ve physical \
+parameters used in this theory affect hysteresis behavior. These parameters \
+are ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["M", "s"], TraditionalForm]], "InlineMath"],
+ " (saturation magnetization), c (magnetization reversibility), k (average \
+energy to break pining site), a (domain wall density), and \[Alpha] \
+(interdomain coupling)."
+}], "ManipulateCaption",
+ CellChangeTimes->{{3.688978985342408*^9, 3.6889790153742785`*^9}, {
+   3.6890458093855224`*^9, 3.689045811302903*^9}, {3.689047603751132*^9, 
+   3.6890476200198174`*^9}, {3.6890541180622587`*^9, 3.689054118094453*^9}, {
+   3.6890541730554333`*^9, 3.68905421410069*^9}, {3.689054252857543*^9, 
+   3.6890542582500296`*^9}, {3.6890556807874765`*^9, 
+   3.6890556895541377`*^9}, {3.6890557988079205`*^9, 
+   3.6890558206159487`*^9}, {3.689055863397996*^9, 3.6890558651761613`*^9}, {
+   3.6890561232383575`*^9, 3.6890561287446966`*^9}, 3.6890562282056684`*^9, {
+   3.6890606374343767`*^9, 3.6890606388149176`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ThumbnailSection"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 1352., $CellContext`c$$ = 
+    0.07593333333333334, $CellContext`k$$ = 2378., $CellContext`Ms$$ = 
+    1.2475*^6, $CellContext`\[Alpha]$$ = 0.0029520000000000006`, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`Ms$$], 1.2475*^6, 
+       "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+      1.2*^6, 1.5*^6}, {{
+       Hold[$CellContext`c$$], 0.07593333333333334, 
+       "c: Magnetization reversibility"}, 
+      Rational[1, 30], 
+      Rational[1, 3]}, {{
+       Hold[$CellContext`a$$], 1352., "a: Domain wall density"}, 1300, 
+      2300}, {{
+       Hold[$CellContext`k$$], 2378., 
+       "k: Average energy to break pining site"}, 1500, 2500}, {{
+       Hold[$CellContext`\[Alpha]$$], 0.0029520000000000006`, 
+       "\[Alpha]: Interdomain coupling"}, 
+      Rational[1, 1000], 
+      Rational[3, 1000]}}, Typeset`size$$ = {500., {248., 252.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`Ms$2166431$$ = 0, $CellContext`c$2166432$$ = 
+    0, $CellContext`a$2166433$$ = 0, $CellContext`k$2166434$$ = 
+    0, $CellContext`\[Alpha]$2166435$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 1352., $CellContext`c$$ = 
+        0.07593333333333334, $CellContext`k$$ = 2378., $CellContext`Ms$$ = 
+        1.2475*^6, $CellContext`\[Alpha]$$ = 0.0029520000000000006`}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`Ms$$, $CellContext`Ms$2166431$$, 0], 
+        Hold[$CellContext`c$$, $CellContext`c$2166432$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$2166433$$, 0], 
+        Hold[$CellContext`k$$, $CellContext`k$2166434$$, 0], 
+        Hold[$CellContext`\[Alpha]$$, $CellContext`\[Alpha]$2166435$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ParametricPlot[{
+         $CellContext`H[$CellContext`t], 
+         10^(-6) $CellContext`solns[$CellContext`Ms$$, $CellContext`c$$, \
+$CellContext`a$$, $CellContext`k$$, \
+$CellContext`\[Alpha]$$][$CellContext`t]}, {$CellContext`t, 0, 1.3}, 
+        AxesLabel -> {"H [A/m]", "B [T]"}, LabelStyle -> {15}, 
+        PlotRange -> {{-9000, 9000}, {-1.4, 1.4}}, PlotStyle -> Black, 
+        AspectRatio -> 1, ImageSize -> {500, 500}], 
+      "Specifications" :> {{{$CellContext`Ms$$, 1.2475*^6, 
+          "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+         1.2*^6, 1.5*^6, Appearance -> 
+         "Labeled"}, {{$CellContext`c$$, 0.07593333333333334, 
+          "c: Magnetization reversibility"}, 
+         Rational[1, 30], 
+         Rational[1, 3], Appearance -> 
+         "Labeled"}, {{$CellContext`a$$, 1352., "a: Domain wall density"}, 
+         1300, 2300, Appearance -> 
+         "Labeled"}, {{$CellContext`k$$, 2378., 
+          "k: Average energy to break pining site"}, 1500, 2500, Appearance -> 
+         "Labeled"}, {{$CellContext`\[Alpha]$$, 0.0029520000000000006`, 
+          "\[Alpha]: Interdomain coupling"}, 
+         Rational[1, 1000], 
+         Rational[3, 1000], Appearance -> "Labeled"}}, 
+      "Options" :> {ContinuousAction -> False}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{549., {347., 354.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->93244923]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SnapshotsSection"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 1368., $CellContext`c$$ = 
+    0.09993333333333333, $CellContext`k$$ = 1700., $CellContext`Ms$$ = 
+    1.284*^6, $CellContext`\[Alpha]$$ = 0.0013420000000000003`, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`Ms$$], 1.284*^6, 
+       "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+      1.2*^6, 1.5*^6}, {{
+       Hold[$CellContext`c$$], 0.09993333333333333, 
+       "c: Magnetization reversibility"}, 
+      Rational[1, 30], 
+      Rational[1, 3]}, {{
+       Hold[$CellContext`a$$], 1368., "a: Domain wall density"}, 1300, 
+      2300}, {{
+       Hold[$CellContext`k$$], 1700., 
+       "k: Average energy to break pining site"}, 1500, 2500}, {{
+       Hold[$CellContext`\[Alpha]$$], 0.0013420000000000003`, 
+       "\[Alpha]: Interdomain coupling"}, 
+      Rational[1, 1000], 
+      Rational[3, 1000]}}, Typeset`size$$ = {500., {248., 252.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`Ms$2166507$$ = 0, $CellContext`c$2166508$$ = 
+    0, $CellContext`a$2166509$$ = 0, $CellContext`k$2166510$$ = 
+    0, $CellContext`\[Alpha]$2166511$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 1368., $CellContext`c$$ = 
+        0.09993333333333333, $CellContext`k$$ = 1700., $CellContext`Ms$$ = 
+        1.284*^6, $CellContext`\[Alpha]$$ = 0.0013420000000000003`}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`Ms$$, $CellContext`Ms$2166507$$, 0], 
+        Hold[$CellContext`c$$, $CellContext`c$2166508$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$2166509$$, 0], 
+        Hold[$CellContext`k$$, $CellContext`k$2166510$$, 0], 
+        Hold[$CellContext`\[Alpha]$$, $CellContext`\[Alpha]$2166511$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ParametricPlot[{
+         $CellContext`H[$CellContext`t], 
+         10^(-6) $CellContext`solns[$CellContext`Ms$$, $CellContext`c$$, \
+$CellContext`a$$, $CellContext`k$$, \
+$CellContext`\[Alpha]$$][$CellContext`t]}, {$CellContext`t, 0, 1.3}, 
+        AxesLabel -> {"H [A/m]", "B [T]"}, LabelStyle -> {15}, 
+        PlotRange -> {{-9000, 9000}, {-1.4, 1.4}}, PlotStyle -> Black, 
+        AspectRatio -> 1, ImageSize -> {500, 500}], 
+      "Specifications" :> {{{$CellContext`Ms$$, 1.284*^6, 
+          "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+         1.2*^6, 1.5*^6, Appearance -> 
+         "Labeled"}, {{$CellContext`c$$, 0.09993333333333333, 
+          "c: Magnetization reversibility"}, 
+         Rational[1, 30], 
+         Rational[1, 3], Appearance -> 
+         "Labeled"}, {{$CellContext`a$$, 1368., "a: Domain wall density"}, 
+         1300, 2300, Appearance -> 
+         "Labeled"}, {{$CellContext`k$$, 1700., 
+          "k: Average energy to break pining site"}, 1500, 2500, Appearance -> 
+         "Labeled"}, {{$CellContext`\[Alpha]$$, 0.0013420000000000003`, 
+          "\[Alpha]: Interdomain coupling"}, 
+         Rational[1, 1000], 
+         Rational[3, 1000], Appearance -> "Labeled"}}, 
+      "Options" :> {ContinuousAction -> False}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{549., {347., 354.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->310435139],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 2114., $CellContext`c$$ = 
+    0.08073333333333334, $CellContext`k$$ = 2366., $CellContext`Ms$$ = 
+    1.468*^6, $CellContext`\[Alpha]$$ = 0.001508, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`Ms$$], 1.468*^6, 
+       "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+      1.2*^6, 1.5*^6}, {{
+       Hold[$CellContext`c$$], 0.08073333333333334, 
+       "c: Magnetization reversibility"}, 
+      Rational[1, 30], 
+      Rational[1, 3]}, {{
+       Hold[$CellContext`a$$], 2114., "a: Domain wall density"}, 1300, 
+      2300}, {{
+       Hold[$CellContext`k$$], 2366., 
+       "k: Average energy to break pining site"}, 1500, 2500}, {{
+       Hold[$CellContext`\[Alpha]$$], 0.001508, 
+       "\[Alpha]: Interdomain coupling"}, 
+      Rational[1, 1000], 
+      Rational[3, 1000]}}, Typeset`size$$ = {500., {248., 252.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`Ms$2166583$$ = 0, $CellContext`c$2166584$$ = 
+    0, $CellContext`a$2166585$$ = 0, $CellContext`k$2166586$$ = 
+    0, $CellContext`\[Alpha]$2166587$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 2114., $CellContext`c$$ = 
+        0.08073333333333334, $CellContext`k$$ = 2366., $CellContext`Ms$$ = 
+        1.468*^6, $CellContext`\[Alpha]$$ = 0.001508}, "ControllerVariables" :> {
+        Hold[$CellContext`Ms$$, $CellContext`Ms$2166583$$, 0], 
+        Hold[$CellContext`c$$, $CellContext`c$2166584$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$2166585$$, 0], 
+        Hold[$CellContext`k$$, $CellContext`k$2166586$$, 0], 
+        Hold[$CellContext`\[Alpha]$$, $CellContext`\[Alpha]$2166587$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ParametricPlot[{
+         $CellContext`H[$CellContext`t], 
+         10^(-6) $CellContext`solns[$CellContext`Ms$$, $CellContext`c$$, \
+$CellContext`a$$, $CellContext`k$$, \
+$CellContext`\[Alpha]$$][$CellContext`t]}, {$CellContext`t, 0, 1.3}, 
+        AxesLabel -> {"H [A/m]", "B [T]"}, LabelStyle -> {15}, 
+        PlotRange -> {{-9000, 9000}, {-1.4, 1.4}}, PlotStyle -> Black, 
+        AspectRatio -> 1, ImageSize -> {500, 500}], 
+      "Specifications" :> {{{$CellContext`Ms$$, 1.468*^6, 
+          "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+         1.2*^6, 1.5*^6, Appearance -> 
+         "Labeled"}, {{$CellContext`c$$, 0.08073333333333334, 
+          "c: Magnetization reversibility"}, 
+         Rational[1, 30], 
+         Rational[1, 3], Appearance -> 
+         "Labeled"}, {{$CellContext`a$$, 2114., "a: Domain wall density"}, 
+         1300, 2300, Appearance -> 
+         "Labeled"}, {{$CellContext`k$$, 2366., 
+          "k: Average energy to break pining site"}, 1500, 2500, Appearance -> 
+         "Labeled"}, {{$CellContext`\[Alpha]$$, 0.001508, 
+          "\[Alpha]: Interdomain coupling"}, 
+         Rational[1, 1000], 
+         Rational[3, 1000], Appearance -> "Labeled"}}, 
+      "Options" :> {ContinuousAction -> False}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{549., {347., 354.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->3678164],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 1378., $CellContext`c$$ = 
+    0.3015333333333333, $CellContext`k$$ = 1680., $CellContext`Ms$$ = 
+    1.222*^6, $CellContext`\[Alpha]$$ = 0.002856000000000001, Typeset`show$$ =
+     True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`Ms$$], 1.222*^6, 
+       "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+      1.2*^6, 1.5*^6}, {{
+       Hold[$CellContext`c$$], 0.3015333333333333, 
+       "c: Magnetization reversibility"}, 
+      Rational[1, 30], 
+      Rational[1, 3]}, {{
+       Hold[$CellContext`a$$], 1378., "a: Domain wall density"}, 1300, 
+      2300}, {{
+       Hold[$CellContext`k$$], 1680., 
+       "k: Average energy to break pining site"}, 1500, 2500}, {{
+       Hold[$CellContext`\[Alpha]$$], 0.002856000000000001, 
+       "\[Alpha]: Interdomain coupling"}, 
+      Rational[1, 1000], 
+      Rational[3, 1000]}}, Typeset`size$$ = {500., {248., 252.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`Ms$2166659$$ = 0, $CellContext`c$2166660$$ = 
+    0, $CellContext`a$2166661$$ = 0, $CellContext`k$2166662$$ = 
+    0, $CellContext`\[Alpha]$2166663$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 1378., $CellContext`c$$ = 
+        0.3015333333333333, $CellContext`k$$ = 1680., $CellContext`Ms$$ = 
+        1.222*^6, $CellContext`\[Alpha]$$ = 0.002856000000000001}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`Ms$$, $CellContext`Ms$2166659$$, 0], 
+        Hold[$CellContext`c$$, $CellContext`c$2166660$$, 0], 
+        Hold[$CellContext`a$$, $CellContext`a$2166661$$, 0], 
+        Hold[$CellContext`k$$, $CellContext`k$2166662$$, 0], 
+        Hold[$CellContext`\[Alpha]$$, $CellContext`\[Alpha]$2166663$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ParametricPlot[{
+         $CellContext`H[$CellContext`t], 
+         10^(-6) $CellContext`solns[$CellContext`Ms$$, $CellContext`c$$, \
+$CellContext`a$$, $CellContext`k$$, \
+$CellContext`\[Alpha]$$][$CellContext`t]}, {$CellContext`t, 0, 1.3}, 
+        AxesLabel -> {"H [A/m]", "B [T]"}, LabelStyle -> {15}, 
+        PlotRange -> {{-9000, 9000}, {-1.4, 1.4}}, PlotStyle -> Black, 
+        AspectRatio -> 1, ImageSize -> {500, 500}], 
+      "Specifications" :> {{{$CellContext`Ms$$, 1.222*^6, 
+          "\!\(\*SubscriptBox[\(M\), \(s\)]\): Saturation magnetization"}, 
+         1.2*^6, 1.5*^6, Appearance -> 
+         "Labeled"}, {{$CellContext`c$$, 0.3015333333333333, 
+          "c: Magnetization reversibility"}, 
+         Rational[1, 30], 
+         Rational[1, 3], Appearance -> 
+         "Labeled"}, {{$CellContext`a$$, 1378., "a: Domain wall density"}, 
+         1300, 2300, Appearance -> 
+         "Labeled"}, {{$CellContext`k$$, 1680., 
+          "k: Average energy to break pining site"}, 1500, 2500, Appearance -> 
+         "Labeled"}, {{$CellContext`\[Alpha]$$, 0.002856000000000001, 
+          "\[Alpha]: Interdomain coupling"}, 
+         Rational[1, 1000], 
+         Rational[3, 1000], Appearance -> "Labeled"}}, 
+      "Options" :> {ContinuousAction -> False}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{549., {347., 354.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->445877079]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "DetailsSection"],
+
+Cell["\<\
+One of the \[FiLigature]rst attempts to model hysteresis can be traced back \
+to Langevin in 1905, who initially developed the theory for paramagnetic \
+materials which was later extrapolated to encompass ferromagnetic materials. \
+The de\[FiLigature]ning relation is called the Langevin function, which \
+describes saturation phenomenon. Theories deriving from this foundation have \
+presented an analytical approach to explaining hysteresis behaviour. Of \
+these, the most known empirical designs are Presaich and Jiles-Atherton (J-A) \
+models. \
+\>", "ManipulateCaption",
+ CellChangeTimes->{{3.688978985342408*^9, 3.6889790153742785`*^9}, {
+  3.6890458093855224`*^9, 3.689045811302903*^9}, {3.689047603751132*^9, 
+  3.6890476200198174`*^9}, {3.6890541180622587`*^9, 3.6890541237892995`*^9}, {
+  3.689054704469846*^9, 3.6890547074677715`*^9}, {3.6890606219748707`*^9, 
+  3.689060654428623*^9}},
+ CellID->15347991],
+
+Cell["\<\
+J-A model is a macroscopic hysteresis model in which the fundamental notion \
+is to o\:fb00set magnetization from a theoretical sigmoid shaped curve, \
+corresponding to the anhysteretic behaviour. Hysteresis can be understood as \
+the outcome of energy dissipation on voids, inclusions, and dislocations of \
+crystalline structure (termed as pinning sites).\
+\>", "ManipulateCaption",
+ CellChangeTimes->{{3.688978985342408*^9, 3.6889790153742785`*^9}, {
+   3.6890458093855224`*^9, 3.689045811302903*^9}, {3.689047603751132*^9, 
+   3.6890476200198174`*^9}, {3.6890541180622587`*^9, 3.68905412546181*^9}, {
+   3.6890556783314705`*^9, 3.689055712629512*^9}, 3.68906070062175*^9, {
+   3.689061231494398*^9, 3.6890612316506433`*^9}, {3.689061329148341*^9, 
+   3.689061329836008*^9}},
+ CellID->556074815],
+
+Cell["References:", "DetailNotes",
+ CellChangeTimes->{{3.6889797872220345`*^9, 3.688979801630094*^9}, {
+  3.6889799112482834`*^9, 3.6889799239230375`*^9}, {3.6889799793360257`*^9, 
+  3.6889800171646447`*^9}, {3.6890387754647064`*^9, 3.689038777615882*^9}, {
+  3.6890420429842715`*^9, 3.689042189411728*^9}, {3.689042351634224*^9, 
+  3.6890423516482344`*^9}, {3.6890473232669725`*^9, 3.6890473261320868`*^9}},
+ CellID->69256681],
+
+Cell["\<\
+D. C. Jiles and D. L. Atherton, \"Theory of Ferromagnetic Hysteresis,\" \
+Journal of Magnetism and Magnetic Materials, vol. 61, 1986, pp. 48-60. \
+\>", "DetailNotes",
+ CellChangeTimes->{{3.6889797872220345`*^9, 3.688979801630094*^9}, {
+   3.6889799112482834`*^9, 3.6889799239230375`*^9}, {3.6889799793360257`*^9, 
+   3.6889800171646447`*^9}, {3.6890387754647064`*^9, 3.689038777615882*^9}, {
+   3.6890420429842715`*^9, 3.689042189411728*^9}, {3.689042351634224*^9, 
+   3.6890423858391047`*^9}, {3.6890432308926477`*^9, 
+   3.6890432528357472`*^9}, {3.6890454072772613`*^9, 
+   3.6890454465454297`*^9}, {3.689045484449855*^9, 3.6890455301047*^9}, 
+   3.689055768373608*^9},
+ CellID->181334518],
+
+Cell["\<\
+M. F. Jaafar and M. A. Jabri, \"Study and modeling of ferromagnetic \
+hysteresis,\" 2013 International Conference on Electrical Engineering and \
+Software Applications, Hammamet, 2013, pp. 1-6.\
+\>", "DetailNotes",
+ CellChangeTimes->{{3.6889797872220345`*^9, 3.688979801630094*^9}, {
+   3.6889799112482834`*^9, 3.6889799239230375`*^9}, {3.6889799793360257`*^9, 
+   3.6889800171646447`*^9}, {3.6890387754647064`*^9, 3.689038777615882*^9}, {
+   3.6890420429842715`*^9, 3.689042189411728*^9}, {3.689042351634224*^9, 
+   3.6890423858391047`*^9}, {3.6890432308926477`*^9, 3.6890432316251373`*^9}, 
+   3.6890453955991116`*^9},
+ CellID->435372073]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ControlSuggestionsSection"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Resize Images"]}],
+  "\"Click inside an image to reveal its orange resize frame.\\nDrag any of \
+the orange resize handles to resize the image.\""]], "ControlSuggestions",
+ CellChangeTimes->{3.688978784330682*^9, 3.6890472849090214`*^9},
+ FontFamily->"Verdana",
+ CellTags->"ResizeImages"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Rotate and Zoom in 3D"]}],
+  RowBox[{
+   "\"Drag a 3D graphic to rotate it. Starting the drag near the center \
+tumbles\\nthe graphic; starting near a corner turns it parallel to the plane \
+of the screen.\\nHold down \"", 
+    FrameBox[
+    "Ctrl", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" (or \"", 
+    FrameBox[
+    "Cmd", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" on Mac) and drag up and down to zoom.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"RotateAndZoomIn3D"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Drag Locators"]}],
+  RowBox[{"\"Drag any locator (\"", 
+    GraphicsBox[
+     LocatorBox[
+      Scaled[{0.5, 0.5}]], ImageSize -> 20], 
+    "\", etc.) to move it around.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"DragLocators"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Create and Delete Locators"]}],
+  RowBox[{"\"Insert a new locator in the graphic by holding down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" key\\nand clicking where you want it to be. Delete a locator by \
+clicking it\\nwhile holding down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" key.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"CreateAndDeleteLocators"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Slider Zoom"]}],
+  RowBox[{"\"Hold down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" key while moving a slider to make fine adjustments in the slider \
+value.\\nHold \"", 
+    FrameBox[
+    "Ctrl", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" and/or \"", 
+    FrameBox[
+    "Shift", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" at the same time as \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" to make ever finer adjustments.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"SliderZoom"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Gamepad Controls"]}],
+  "\"Control this Demonstration with a gamepad or other\\nhuman interface \
+device connected to your computer.\""]], "ControlSuggestions",
+ CellChangeTimes->{3.35696210375764*^9, 3.3895522232313623`*^9},
+ FontFamily->"Verdana",
+ CellTags->"GamepadControls"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Automatic Animation"]}],
+  RowBox[{"\"Animate a slider in this Demonstration by clicking the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJzzTSzJSM1NLMlMTlRwL0osyMhMLlZwyy8CCjEzMjAwcIKwAgOI/R/IhBKc\n\
+/4EAyGAG0f+nTZsGwgysIJIRKsWKLAXGIHFmEpUgLADxWUAkI24jZs+eTaEt\n\
+IG+wQKRmzJgBlYf5lhEA30OqWA=="], "Graphics", ImageSize -> {9, 9}, ImageMargins -> 
+      0, CellBaseline -> Baseline], BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"button\\nnext to the slider, and then clicking the play button that \
+appears.\\nAnimate all controls by selecting \"", 
+    StyleBox["Autorun", FontWeight -> "Bold"], "\" from the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJyNULENwyAQfEySIlMwTVJlCGRFsosokeNtqBmDBagoaZjAI1C8/8GUUUC6\n\
+57h7cQ8PvU7Pl17nUav7oj/TPH7V7b2QJAUAXBkKmCPRowxICy64bRvGGNF7\n\
+X8CctGoDSN4xhIDGGDhzFXwUh3/ClBKrDQPmnGXtI6u0OOd+tZBVUqy1xSaH\n\
+UqiK6pPe4XdEdAz6563tx/gejuORGMxJaz8mdpJn7hc="], "Graphics", 
+      ImageSize -> {10, 10}, ImageMargins -> 0, CellBaseline -> Baseline], 
+     BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"menu.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"AutomaticAnimation"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Bookmark Animation"]}],
+  RowBox[{
+   "\"See a prepared animation of this Demonstration by selecting\\n\"", 
+    StyleBox["Animate Bookmarks", FontWeight -> "Bold"], "\" from the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJyNULENwyAQfEySIlMwTVJlCGRFsosokeNtqBmDBagoaZjAI1C8/8GUUUC6\n\
+57h7cQ8PvU7Pl17nUav7oj/TPH7V7b2QJAUAXBkKmCPRowxICy64bRvGGNF7\n\
+X8CctGoDSN4xhIDGGDhzFXwUh3/ClBKrDQPmnGXtI6u0OOd+tZBVUqy1xSaH\n\
+UqiK6pPe4XdEdAz6563tx/gejuORGMxJaz8mdpJn7hc="], "Graphics", 
+      ImageSize -> {10, 10}, ImageMargins -> 0, CellBaseline -> Baseline], 
+     BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"menu.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"BookmarkAnimation"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SearchTermsSection"],
+
+Cell["ferromagnetic hysteresis", "SearchTerms",
+ CellChangeTimes->{{3.688978212116158*^9, 3.6889782280743136`*^9}, {
+  3.688978283494959*^9, 3.688978285788441*^9}, {3.6890457392022953`*^9, 
+  3.6890457588643436`*^9}, {3.6890458357209063`*^9, 3.6890458357209063`*^9}},
+ CellID->84482855],
+
+Cell["magnetization", "SearchTerms",
+ CellChangeTimes->{{3.688978212116158*^9, 3.6889782280743136`*^9}, {
+  3.688978283494959*^9, 3.688978285788441*^9}, {3.6890457392022953`*^9, 
+  3.6890457588643436`*^9}, {3.6890458357209063`*^9, 3.6890458391542816`*^9}},
+ CellID->822930460],
+
+Cell["Jiles-Atherton model", "SearchTerms",
+ CellChangeTimes->{{3.688978212116158*^9, 3.6889782743239393`*^9}},
+ CellID->484404757],
+
+Cell["", "SearchTerms",
+ CellChangeTimes->{{3.688978212116158*^9, 3.6889782743239393`*^9}},
+ CellID->98894718]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "RelatedLinksSection"],
+
+Cell[TextData[ButtonBox["Hysteresis Effect",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["http://scienceworld.wolfram.com/physics/HysteresisEffect.html"], 
+   None}]], "RelatedLinks",
+ CellChangeTimes->{{3.688977973158985*^9, 3.688977997304045*^9}},
+ CellID->172433331],
+
+Cell[TextData[{
+ ButtonBox["Ferromagnetism",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://scienceworld.wolfram.com/physics/Ferromagnetism.html"], None}],
+ " "
+}], "RelatedLinks",
+ CellChangeTimes->{{3.688977973158985*^9, 3.6889779984642873`*^9}, {
+  3.688978047829256*^9, 3.688978047829256*^9}},
+ CellID->347437226],
+
+Cell[TextData[ButtonBox["Magnetic Hysteresis",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["http://demonstrations.wolfram.com/MagneticHysteresis/"], None},
+ ButtonNote->
+  "http://demonstrations.wolfram.com/MagneticHysteresis/"]], "RelatedLinks",
+ CellChangeTimes->{{3.688977973158985*^9, 3.6889779984642873`*^9}, {
+  3.688978047829256*^9, 3.6889780482065716`*^9}, {3.6889781950450773`*^9, 
+  3.6889781950460777`*^9}},
+ CellID->749666678]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "AuthorSection"],
+
+Cell["Contributed by: Santosh Kumar and Tarun Tummuru", "Author",
+ CellChangeTimes->{
+  3.35696210375764*^9, {3.432333043774981*^9, 3.432333045441087*^9}, {
+   3.6889783811529303`*^9, 3.6889783883256426`*^9}, 3.6889785303514166`*^9},
+ CellID->94483656]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1349, 709},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (July 1, 2014)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Demonstration.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ResizeImages"->{
+  Cell[34301, 787, 356, 8, 22, "ControlSuggestions",
+   CellTags->"ResizeImages"]},
+ "RotateAndZoomIn3D"->{
+  Cell[34660, 797, 661, 16, 22, "ControlSuggestions",
+   CellTags->"RotateAndZoomIn3D"]},
+ "DragLocators"->{
+  Cell[35324, 815, 318, 10, 22, "ControlSuggestions",
+   CellTags->"DragLocators"]},
+ "CreateAndDeleteLocators"->{
+  Cell[35645, 827, 615, 14, 22, "ControlSuggestions",
+   CellTags->"CreateAndDeleteLocators"]},
+ "SliderZoom"->{
+  Cell[36263, 843, 827, 21, 22, "ControlSuggestions",
+   CellTags->"SliderZoom"]},
+ "GamepadControls"->{
+  Cell[37093, 866, 347, 8, 22, "ControlSuggestions",
+   CellTags->"GamepadControls"]},
+ "AutomaticAnimation"->{
+  Cell[37443, 876, 1442, 30, 22, "ControlSuggestions",
+   CellTags->"AutomaticAnimation"]},
+ "BookmarkAnimation"->{
+  Cell[38888, 908, 886, 20, 22, "ControlSuggestions",
+   CellTags->"BookmarkAnimation"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ResizeImages", 42490, 1014},
+ {"RotateAndZoomIn3D", 42598, 1017},
+ {"DragLocators", 42707, 1020},
+ {"CreateAndDeleteLocators", 42822, 1023},
+ {"SliderZoom", 42935, 1026},
+ {"GamepadControls", 43040, 1029},
+ {"AutomaticAnimation", 43152, 1032},
+ {"BookmarkAnimation", 43268, 1035}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 134, 1, 74, "DemoTitle"],
+Cell[CellGroupData[{
+Cell[739, 27, 33, 0, 287, "InitializationSection"],
+Cell[775, 29, 4525, 131, 191, "Input",
+ InitializationCell->True,
+ CellID->39012936]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5337, 165, 29, 0, 234, "ManipulateSection"],
+Cell[CellGroupData[{
+Cell[5391, 169, 3907, 102, 156, "Input"],
+Cell[9301, 273, 4011, 78, 713, "Output",
+ CellID->274286796]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13361, 357, 36, 0, 169, "ManipulateCaptionSection"],
+Cell[13400, 359, 1138, 20, 38, "ManipulateCaption"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14575, 384, 28, 0, 173, "ThumbnailSection"],
+Cell[14606, 386, 4010, 78, 713, "Output",
+ CellID->93244923]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18653, 469, 28, 0, 143, "SnapshotsSection"],
+Cell[18684, 471, 4007, 78, 713, "Output",
+ CellID->310435139],
+Cell[22694, 551, 3942, 77, 713, "Output",
+ CellID->3678164],
+Cell[26639, 630, 3995, 78, 713, "Output",
+ CellID->445877079]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[30671, 713, 26, 0, 336, "DetailsSection"],
+Cell[30700, 715, 925, 15, 52, "ManipulateCaption",
+ CellID->15347991],
+Cell[31628, 732, 808, 13, 37, "ManipulateCaption",
+ CellID->556074815],
+Cell[32439, 747, 427, 6, 22, "DetailNotes",
+ CellID->69256681],
+Cell[32869, 755, 702, 12, 22, "DetailNotes",
+ CellID->181334518],
+Cell[33574, 769, 650, 11, 22, "DetailNotes",
+ CellID->435372073]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34261, 785, 37, 0, 126, "ControlSuggestionsSection"],
+Cell[34301, 787, 356, 8, 22, "ControlSuggestions",
+ CellTags->"ResizeImages"],
+Cell[34660, 797, 661, 16, 22, "ControlSuggestions",
+ CellTags->"RotateAndZoomIn3D"],
+Cell[35324, 815, 318, 10, 22, "ControlSuggestions",
+ CellTags->"DragLocators"],
+Cell[35645, 827, 615, 14, 22, "ControlSuggestions",
+ CellTags->"CreateAndDeleteLocators"],
+Cell[36263, 843, 827, 21, 22, "ControlSuggestions",
+ CellTags->"SliderZoom"],
+Cell[37093, 866, 347, 8, 22, "ControlSuggestions",
+ CellTags->"GamepadControls"],
+Cell[37443, 876, 1442, 30, 22, "ControlSuggestions",
+ CellTags->"AutomaticAnimation"],
+Cell[38888, 908, 886, 20, 22, "ControlSuggestions",
+ CellTags->"BookmarkAnimation"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39811, 933, 30, 0, 155, "SearchTermsSection"],
+Cell[39844, 935, 286, 4, 22, "SearchTerms",
+ CellID->84482855],
+Cell[40133, 941, 276, 4, 22, "SearchTerms",
+ CellID->822930460],
+Cell[40412, 947, 131, 2, 22, "SearchTerms",
+ CellID->484404757],
+Cell[40546, 951, 110, 2, 22, "SearchTerms",
+ CellID->98894718]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40693, 958, 31, 0, 141, "RelatedLinksSection"],
+Cell[40727, 960, 272, 6, 22, "RelatedLinks",
+ CellID->172433331],
+Cell[41002, 968, 328, 9, 22, "RelatedLinks",
+ CellID->347437226],
+Cell[41333, 979, 441, 9, 22, "RelatedLinks",
+ CellID->749666678]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41811, 993, 25, 0, 141, "AuthorSection"],
+Cell[41839, 995, 252, 4, 22, "Author",
+ CellID->94483656]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
